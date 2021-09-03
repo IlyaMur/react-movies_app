@@ -3,7 +3,7 @@ import { Movies } from "../components/Movies";
 import { Preloader } from "../components/Preloader";
 import { Search } from "../components/Search";
 
-const MOVIE_ACCESS = process.env.REACT_APP_API;
+const MOVIE_ACCESS = process.env.REACT_APP_KEY;
 
 class Main extends Component {
   state = {
