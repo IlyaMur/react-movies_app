@@ -3,13 +3,17 @@ import React from "react";
 class Search extends React.Component {
   state = {
     search: "",
+    type: "",
   };
 
   handleKey = (e) => {
     if (e.key === "Enter") {
-      console.log(this.state.search);
-      this.props.getMovies(this.state.search);
+      this.props.getMovies(this.state.search, this.state.type);
     }
+  };
+
+  handleRadio = (e) => {
+    this.setState({ type: e.target.value });
   };
 
   render() {
@@ -27,10 +31,51 @@ class Search extends React.Component {
             />
             <button
               className="btn search-btn"
-              onClick={() => this.props.getMovies(this.state.search)}
+              onClick={() =>
+                this.props.getMovies(this.state.search, this.state.type)
+              }
             >
               SEARCH
             </button>
+            <form className="radio-search">
+              <p>
+                <label>
+                  <input
+                    className="with-gap"
+                    name="type"
+                    value=""
+                    type="radio"
+                    onChange={this.handleRadio}
+                    checked
+                  />
+                  <span>All</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <input
+                    className="with-gap"
+                    name="type"
+                    value="movie"
+                    type="radio"
+                    onChange={this.handleRadio}
+                  />
+                  <span>Movies</span>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <input
+                    className="with-gap"
+                    name="type"
+                    value="series"
+                    type="radio"
+                    onChange={this.handleRadio}
+                  />
+                  <span>Series</span>
+                </label>
+              </p>
+            </form>
           </div>
         </div>
       </div>

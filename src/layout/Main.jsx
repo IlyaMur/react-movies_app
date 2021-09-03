@@ -3,29 +3,36 @@ import { Movies } from "../components/Movies";
 import { Preloader } from "../components/Preloader";
 import { Search } from "../components/Search";
 
+const MOVIE_ACCESS = process.env.REACT_APP_API;
+
 class Main extends Component {
   state = {
     movies: [],
-    movie: "",
+    movie: "terminator",
+    type: "",
+    loading: true,
   };
 
   componentDidMount() {
-    this.getMovies("terminator");
+    this.getMovies(this.state.movie, this.state.type);
   }
 
-  getMovies = (movieName) => {
-    fetch(`http://www.omdbapi.com/?apikey=xxxxxx&s=${movieName}`)
+  getMovies = (movieName, type) => {
+    this.setState({ loading: true });
+    fetch(
+      `http://www.omdbapi.com/?apikey=${MOVIE_ACCESS}&s=${movieName}&type=${type}`
+    )
       .then((response) => response.json())
-      .then((data) => this.setState({ movies: data.Search }));
+      .then((data) => this.setState({ movies: data.Search, loading: false }));
   };
 
   render() {
-    const { movies } = this.state;
+    const { movies, loading } = this.state;
 
     return (
       <main className="container content">
         <Search getMovies={this.getMovies} />
-        {movies ? <Movies movies={this.state.movies} /> : <Preloader />}
+        {loading ? <Preloader /> : <Movies movies={movies} />}
       </main>
     );
   }

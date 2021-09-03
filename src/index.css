@@ -32,3 +32,8 @@ nav {
   top: 0;
   right: 0.5rem;
 }
+
+.radio-search {
+  display: flex;
+  justify-content: space-between;
+}
