@@ -6,21 +6,26 @@ import { Search } from "../components/Search";
 class Main extends Component {
   state = {
     movies: [],
+    movie: "",
   };
 
   componentDidMount() {
-    fetch("http://www.omdbapi.com/?apikey=xxxxe2&s=matrix")
+    this.getMovies("terminator");
+  }
+
+  getMovies = (movieName) => {
+    fetch(`http://www.omdbapi.com/?apikey=xxxxxx&s=${movieName}`)
       .then((response) => response.json())
       .then((data) => this.setState({ movies: data.Search }));
-  }
+  };
 
   render() {
     const { movies } = this.state;
 
     return (
       <main className="container content">
-        <Search />
-        {movies.length ? <Movies movies={this.state.movies} /> : <Preloader />}
+        <Search getMovies={this.getMovies} />
+        {movies ? <Movies movies={this.state.movies} /> : <Preloader />}
       </main>
     );
   }

@@ -5,6 +5,13 @@ class Search extends React.Component {
     search: "",
   };
 
+  handleKey = (e) => {
+    if (e.key === "Enter") {
+      console.log(this.state.search);
+      this.props.getMovies(this.state.search);
+    }
+  };
+
   render() {
     return (
       <div className="row">
@@ -13,10 +20,17 @@ class Search extends React.Component {
             <input
               value={this.state.search}
               onChange={(e) => this.setState({ search: e.target.value })}
+              onKeyDown={this.handleKey}
               placeholder="Search"
               type="search"
               className="validate"
             />
+            <button
+              className="btn search-btn"
+              onClick={() => this.props.getMovies(this.state.search)}
+            >
+              SEARCH
+            </button>
           </div>
         </div>
       </div>
